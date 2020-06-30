@@ -1,4 +1,6 @@
 const tmi = require('tmi.js');
+const wr = require('./wr.js')
+const 
 
 // Define configuration options
 const opts = {
@@ -29,7 +31,7 @@ function onMessageHandler (target, context, msg, self) {
   const commandName = msg.trim();
 
   // If the command is known, let's execute it
-  if (commandName === '!d20') {
+  if (commandName === '!wr') {
     const num = rollDice(commandName);
     client.say(target, `You rolled a ${num}. Link: https://glitch.com/~twitch-chatbot`);
     console.log(`* Executed ${commandName} command`);
