@@ -13,6 +13,8 @@ const opts = {
   ]
 };
 
+var WRs = JSON.parse(fs.readFileSync("./WRs.json"));
+
 // Create a client with our options
 const client = new tmi.client(opts);
 
@@ -36,23 +38,28 @@ function onMessageHandler (target, context, msg, self) {
       client.say("Invalid arguments number");
     }
     else {
-      fs.ReadFile('WRs.json', 'utf8', function(data) {
+      fs.ReadFile('./WRs.json', 'utf8', function(data) {
         var wr_data = JSON.parse(data);
         wr_data.WRs.push({
           src_link: splittedMsg[1],
           display_in_title: splittedMsg[2]
         });
-        fs.writeFile("WRs.json", JSON.stringify(wr_data), function(err) {
+        fs.writeFile("./WRs.json", JSON.stringify(wr_data), function(err) {
           if(err) {
             console.log("* Error : " + err);
           }
           else {
+            WRs.push({
+              src_link: splittedMsg[1],
+              display_in_title: splittedMsg[2]
+            })
             client.say("Saved WR");
           }
         });
       });
     }
   }
+  
 }
 
 // Function called when the "dice" command is issued
