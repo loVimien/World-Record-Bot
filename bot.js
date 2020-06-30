@@ -59,6 +59,11 @@ function onMessageHandler (target, context, msg, self) {
       });
     }
   }
+  else if (splittedMsg === '!wr') {
+    wr.getWR(WRs[0].src_link).then(function(result) {
+      client.say(result);
+    })
+  }
   
 }
 
