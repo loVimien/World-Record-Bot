@@ -1,6 +1,6 @@
 const tmi = require('tmi.js');
 const wr = require('./wr.js')
-const 
+const fs = require('fs')
 
 // Define configuration options
 const opts = {
@@ -28,15 +28,16 @@ function onMessageHandler (target, context, msg, self) {
   if (self) { return; } // Ignore messages from the bot
 
   // Remove whitespace from chat message
-  const commandName = msg.trim();
+  const splittedMsg = msg.trim().split("|");
 
   // If the command is known, let's execute it
-  if (commandName === '!wr') {
-    const num = rollDice(commandName);
-    client.say(target, `You rolled a ${num}. Link: https://glitch.com/~twitch-chatbot`);
-    console.log(`* Executed ${commandName} command`);
-  } else {
-    console.log(`* Unknown command ${commandName}`);
+  if (splittedMsg === '!wrAdd' && context.mod) {
+    if(splittedMsg.length != 3) {
+      client.say("Invalid arguments number");
+    }
+    else {
+      
+    }
   }
 }
 
