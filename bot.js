@@ -36,7 +36,21 @@ function onMessageHandler (target, context, msg, self) {
       client.say("Invalid arguments number");
     }
     else {
-      
+      fs.ReadFile('WRs.json', 'utf8', function(data) {
+        var wr_data = JSON.parse(data);
+        wr_data.WRs.push({
+          src_link: splittedMsg[1],
+          display_in_title: splittedMsg[2]
+        });
+        fs.writeFile("WRs.json", JSON.stringify(wr_data), function(err) {
+          if(err) {
+            console.log("* Error : " + err);
+          }
+          else {
+            client.say("Saved WR");
+          }
+        });
+      });
     }
   }
 }
