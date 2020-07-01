@@ -53,7 +53,11 @@ function onMessageHandler (target, context, msg, self) {
     })
   }
   else if(splittedMsg[0] === '!debugInfo') {
-    console.log(target)
+    client.api({
+      url: "https://api.twitch.tv/kraken/channel?client_id=kvv1z3bd46uoyqkg64ccfg58p5u3bb"
+    }, function(err, res, body) {
+      console.log(body);
+    })
   }
   
 }
