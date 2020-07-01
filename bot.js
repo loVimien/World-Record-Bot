@@ -55,7 +55,8 @@ function onMessageHandler (target, context, msg, self) {
     else {
       WRs.WRs.push({
         src_link: splittedMsg[1],
-        display_in_title: splittedMsg[2]
+        display_in_title: splittedMsg[2],
+        subcategory: splittedMsg[3]
       })
       fs.writeFileSync("./WRs.json", JSON.stringify(WRs));
       client.say(target, "Saved WR");
@@ -83,7 +84,7 @@ function onMessageHandler (target, context, msg, self) {
         client.say(target, "No WR found for this stream title");
       }
       else {
-        wr.getWR(WR_to_display.src_link).then(function(result) {
+        wr.getWR(WR_to_display.src_link, WR_to_display.subcategory).then(function(result) {
           client.say(target, result);
         })
       }

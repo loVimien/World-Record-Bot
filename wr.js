@@ -43,6 +43,7 @@ var getWR = function(srcURL, subcatNeeded) {
                                 subcategory_ID = key;
                             }
                         }
+                        console.log(subcategory_ID);
                         category_ID = cat_data.data[0].id;
                     }
                     var new_req_prom = request(srcURL + "?var-" + category_ID + "=" + subcategory_ID);
