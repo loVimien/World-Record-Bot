@@ -6,11 +6,12 @@ WRBot displays the world record of the category you're running by looking at you
 
 ## How to install ?
 
-- Remix the project on Glitch (go to View code and Remix)
+- Create a new project on glitch.com and import the content of this git (https://github.com/loVimien/World-Record-Bot)
 - Setup the environement
   - Set the bot username (You can use your twitch account or create another one)
   - Set the oAuth key (you can generate one on https://twitchapps.com/tmi/. It has to correspond to the bot account)
   - Set the channel where the bot will be deployed
+ If there's updates, reimport the content of the git on glitch.com.
 
 ## How to use ?
 
