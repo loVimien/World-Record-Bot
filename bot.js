@@ -48,7 +48,7 @@ function onMessageHandler (target, context, msg, self) {
   const splittedMsg = msg.trim().split("|");
 
   // If the command is known, let's execute it
-  if (splittedMsg[0] === '!wrAdd') {
+  if (splittedMsg[0] === '!wrAdd' && context.mod) {
     if(splittedMsg.length < 3) {
       client.say(target, "Invalid arguments number");
     }
@@ -61,6 +61,13 @@ function onMessageHandler (target, context, msg, self) {
       fs.writeFileSync("./WRs.json", JSON.stringify(WRs));
       client.say(target, "Saved WR");
     }
+  }
+  if (splittedMsg[0] === '!wrList' && context.mod) {
+    var wrString = "";
+    WRs.WRs.forEach(function(value) {
+      wrString += value.display_in_title + " " + value.src_link + " | "
+    });
+    client.say(target, wrString);
   }
   else if (splittedMsg[0] === '!wr') {
     console.log(WRs);
