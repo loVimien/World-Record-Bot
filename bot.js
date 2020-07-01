@@ -1,6 +1,7 @@
 const tmi = require('tmi.js');
 const wr = require('./wr.js')
 const fs = require('fs')
+const https = require('https')
 
 // Define configuration options
 const opts = {
@@ -53,10 +54,18 @@ function onMessageHandler (target, context, msg, self) {
     })
   }
   else if(splittedMsg[0] === '!debugInfo') {
-    client.api({
-      url: "https://api.twitch.tv/kraken/channel?client_id=kvv1z3bd46uoyqkg64ccfg58p5u3bb"
-    }, function(err, res, body) {
-      console.log(body);
+    https.get("https://api.twitch.tv/kraken/channel?client_id=kvv1z3bd46uoyqkg64ccfg58p5u3bb", {
+      headers: {
+        Accept: 
+      }
+    },function(res) {
+      var raw = ''
+      res.on('data', function(d) {
+        raw += d;
+      })
+      .on('end', function(){
+        console.log(raw);
+      })
     })
   }
   
