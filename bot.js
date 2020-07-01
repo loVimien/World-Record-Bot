@@ -35,12 +35,13 @@ function onMessageHandler (target, context, msg, self) {
   // If the command is known, let's execute it
   if (splittedMsg[0] === '!wrAdd') {
     if(splittedMsg.length != 3) {
-      client.say("Invalid arguments number");
+      client.say(target, "Invalid arguments number");
     }
     else {
-      fs.ReadFile('./WRs.json', 'utf8', function(data) {
-        console.log("* Reading JSON")
+      fs.readFile('home/WRs.json', function(data) {
+        console.log("* Reading JSON");
         var wr_data = JSON.parse(data);
+        console.log("* JSON content : " + data)
         wr_data.WRs.push({
           src_link: splittedMsg[1],
           display_in_title: splittedMsg[2]
@@ -55,7 +56,7 @@ function onMessageHandler (target, context, msg, self) {
               src_link: splittedMsg[1],
               display_in_title: splittedMsg[2]
             })
-            client.say("Saved WR");
+            client.say(target, "Saved WR");
           }
         });
       });
@@ -64,7 +65,7 @@ function onMessageHandler (target, context, msg, self) {
   else if (splittedMsg[0] === '!wr') {
     console.log(WRs);
     wr.getWR(WRs[0].src_link).then(function(result) {
-      client.say(result);
+      client.say(target, result);
     })
   }
   
