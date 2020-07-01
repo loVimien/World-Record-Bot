@@ -14,6 +14,20 @@ const opts = {
   ]
 };
 
+var chan_id;
+
+request({
+  headers: {
+    'Accept': 'application/vnd.twitchtv.v5+json',
+    'Client-ID': 'kvv1z3bd46uoyqkg64ccfg58p5u3bb'
+  },
+  uri: 'https://api.twitch.tv/kraken/users?login=' + process.env.CHANNEL_NAME,
+  method: 'GET'
+  },function(err, res, body) {
+    chan_id = JSON.parse(body).users[0]._id;
+  }
+);
+
 var WRs = JSON.parse(fs.readFileSync("./WRs.json"));
 
 // Create a client with our options
@@ -48,22 +62,22 @@ function onMessageHandler (target, context, msg, self) {
     }
   }
   else if (splittedMsg[0] === '!wr') {
-    console.log(WRs);
-    wr.getWR(WRs.WRs[0].src_link).then(function(result) {
-      client.say(target, result);
-    })
-  }
-  else if(splittedMsg[0] === '!debugInfo') {
     request({
       headers: {
         'Accept': 'application/vnd.twitchtv.v5+json',
         'Client-ID': 'kvv1z3bd46uoyqkg64ccfg58p5u3bb'
       },
-      uri: 'https://api.twitch.tv/kraken/users?login=fifour_',
+      uri: 'https://api.twitch.tv/kraken/channels/' + chan_id,
       method: 'GET'
     },function(err, res, body) {
-      console.log(body);
+      var title = JSON.parse
   });
+    wr.getWR(WRs.WRs[0].src_link).then(function(result) {
+      client.say(target, result);
+    })
+  }
+  else if(splittedMsg[0] === '!debugInfo') {
+    
   }
 }
 
