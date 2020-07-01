@@ -42,7 +42,7 @@ client.connect();
 
 // Called every time a message comes in
 function onMessageHandler (target, context, msg, self) {
-  if (self) { return; } // Ignore messages from the bot
+  if (self) { console.log(context); return; } // Ignore messages from the bot
   console.log("* Received message")
   // Remove whitespace from chat message
   const splittedMsg = msg.trim().split("|");
@@ -62,10 +62,10 @@ function onMessageHandler (target, context, msg, self) {
       client.say(target, "Saved WR");
     }
   }
-  if (splittedMsg[0] === '!wrList' && context.mod) {
+  else if (splittedMsg[0] === '!wrList' && (context.badges.)) {
     var wrString = "";
     WRs.WRs.forEach(function(value) {
-      wrString += value.display_in_title + " " + value.src_link + " | "
+      wrString += value.display_in_title + " " + value.src_link + " | ";
     });
     client.say(target, wrString);
   }
@@ -96,6 +96,9 @@ function onMessageHandler (target, context, msg, self) {
         })
       }
     });
+  }
+  else if (splittedMsg[0] === "!debugInfo") {
+    console.log(context);
   }
 }
 
