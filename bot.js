@@ -28,23 +28,25 @@ client.connect();
 // Called every time a message comes in
 function onMessageHandler (target, context, msg, self) {
   if (self) { return; } // Ignore messages from the bot
-
+  console.log("* Received message")
   // Remove whitespace from chat message
   const splittedMsg = msg.trim().split("|");
 
   // If the command is known, let's execute it
-  if (splittedMsg === '!wrAdd' && context.mod) {
+  if (splittedMsg[0] === '!wrAdd') {
     if(splittedMsg.length != 3) {
       client.say("Invalid arguments number");
     }
     else {
       fs.ReadFile('./WRs.json', 'utf8', function(data) {
+        console.log("* Reading JSON")
         var wr_data = JSON.parse(data);
         wr_data.WRs.push({
           src_link: splittedMsg[1],
           display_in_title: splittedMsg[2]
         });
         fs.writeFile("./WRs.json", JSON.stringify(wr_data), function(err) {
+          console.log("* Writing file")
           if(err) {
             console.log("* Error : " + err);
           }
@@ -59,7 +61,8 @@ function onMessageHandler (target, context, msg, self) {
       });
     }
   }
-  else if (splittedMsg === '!wr') {
+  else if (splittedMsg[0] === '!wr') {
+    console.log(WRs);
     wr.getWR(WRs[0].src_link).then(function(result) {
       client.say(result);
     })
