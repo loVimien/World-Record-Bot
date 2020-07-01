@@ -88,7 +88,7 @@ function onMessageHandler (target, context, msg, self) {
           client.say(target, result);
         })
       }
-  });
+    });
   }
 }
 

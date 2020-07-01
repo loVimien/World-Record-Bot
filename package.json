@@ -1,7 +1,7 @@
 {
-  "name": "twitch-chatbot",
+  "name": "wrbot",
   "version": "0.0.1",
-  "description": "A simple app chatbot example. Using the command !echo will simply repeat the message.",
+  "description": "A simple twitch bot which displays speedrunning world records",
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js"
