@@ -38,35 +38,22 @@ function onMessageHandler (target, context, msg, self) {
       client.say(target, "Invalid arguments number");
     }
     else {
-      fs.readFile('home/WRs.json', function(data) {
-        console.log("* Reading JSON");
-        var wr_data = JSON.parse(data);
-        console.log("* JSON content : " + data)
-        wr_data.WRs.push({
-          src_link: splittedMsg[1],
-          display_in_title: splittedMsg[2]
-        });
-        fs.writeFile("./WRs.json", JSON.stringify(wr_data), function(err) {
-          console.log("* Writing file")
-          if(err) {
-            console.log("* Error : " + err);
-          }
-          else {
-            WRs.push({
-              src_link: splittedMsg[1],
-              display_in_title: splittedMsg[2]
-            })
-            client.say(target, "Saved WR");
-          }
-        });
-      });
+      WRs.WRs.push({
+        src_link: splittedMsg[1],
+        display_in_title: splittedMsg[2]
+      })
+      fs.writeFileSync("./WRs.json", JSON.stringify(WRs));
+      client.say(target, "Saved WR");
     }
   }
   else if (splittedMsg[0] === '!wr') {
     console.log(WRs);
-    wr.getWR(WRs[0].src_link).then(function(result) {
+    wr.getWR(WRs.WRs[0].src_link).then(function(result) {
       client.say(target, result);
     })
+  }
+  else if(splittedMsg[0] === '!debugInfo') {
+    console.log(target)
   }
   
 }
