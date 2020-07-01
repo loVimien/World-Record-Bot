@@ -62,6 +62,7 @@ function onMessageHandler (target, context, msg, self) {
     }
   }
   else if (splittedMsg[0] === '!wr') {
+    console.log()
     request({
       headers: {
         'Accept': 'application/vnd.twitchtv.v5+json',
@@ -70,11 +71,18 @@ function onMessageHandler (target, context, msg, self) {
       uri: 'https://api.twitch.tv/kraken/channels/' + chan_id,
       method: 'GET'
     },function(err, res, body) {
-      var title = JSON.parse
-  });
-    wr.getWR(WRs.WRs[0].src_link).then(function(result) {
+      var title = JSON.parse(body).status;
+      var WR_to_display;
+      WRs.WRs.some(function(value) {
+        if(title.includes(value.display_in_title)) {
+          WR_to_display = value;
+          return true;
+        }
+      })
+      wr.getWR(WRs.WRs[0].src_link).then(function(result) {
       client.say(target, result);
     })
+  });
   }
   else if(splittedMsg[0] === '!debugInfo') {
     
