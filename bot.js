@@ -49,7 +49,7 @@ function onMessageHandler (target, context, msg, self) {
 
   // If the command is known, let's execute it
   if (splittedMsg[0] === '!wrAdd' && (context.badges.broadcaster === '1' || context.mod)) {
-    if(splittedMsg.length != 3 || splittedMsg.lenghth != 4) {
+    if(splittedMsg.length != 3 && splittedMsg.lenghth != 4) {
       client.say(target, "Invalid arguments number");
     }
     else {
@@ -67,14 +67,22 @@ function onMessageHandler (target, context, msg, self) {
     WRs.WRs.forEach(function(value, index) {
       wrString += index + ": " + value.display_in_title + " " + value.src_link + " | ";
     });
+    if (wrString === "") {
+      wrString = "No WRs in list";
+    }
     client.say(target, wrString);
   }
   else if (splittedMsg[0] === '!wrRemove' && (context.badges.broadcaster === '1' || context.mod)) {
     if(splittedMsg.length != 2) {
       client.say(target, "Invalid arguments number");
     }
+    else if (splittedMsg[1] < 0 || splittedMsg[1] >= WRs.WRs.length) {
+      client.say(target, "Invalid index");
+    }
     else {
-      
+      WRs.WRs.splice(splittedMsg[1], 1);
+      fs.writeFileSync("./WRs.json", JSON.stringify(WRs));
+      client.say(target, "Removed element " + splittedMsg[1]);
     }
   }
   else if (splittedMsg[0] === '!wr') {
