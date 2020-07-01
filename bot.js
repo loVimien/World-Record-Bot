@@ -48,8 +48,8 @@ function onMessageHandler (target, context, msg, self) {
   const splittedMsg = msg.trim().split("|");
 
   // If the command is known, let's execute it
-  if (splittedMsg[0] === '!wrAdd' && context.mod) {
-    if(splittedMsg.length < 3) {
+  if (splittedMsg[0] === '!wrAdd' && (context.badges.broadcaster === '1' || context.mod)) {
+    if(splittedMsg.length != 3 || splittedMsg.lenghth != 4) {
       client.say(target, "Invalid arguments number");
     }
     else {
@@ -62,12 +62,20 @@ function onMessageHandler (target, context, msg, self) {
       client.say(target, "Saved WR");
     }
   }
-  else if (splittedMsg[0] === '!wrList' && (context.badges.)) {
+  else if (splittedMsg[0] === '!wrList' && (context.badges.broadcaster === '1' || context.mod)) {
     var wrString = "";
-    WRs.WRs.forEach(function(value) {
-      wrString += value.display_in_title + " " + value.src_link + " | ";
+    WRs.WRs.forEach(function(value, index) {
+      wrString += index + ": " + value.display_in_title + " " + value.src_link + " | ";
     });
     client.say(target, wrString);
+  }
+  else if (splittedMsg[0] === '!wrRemove' && (context.badges.broadcaster === '1' || context.mod)) {
+    if(splittedMsg.length != 2) {
+      client.say(target, "Invalid arguments number");
+    }
+    else {
+      
+    }
   }
   else if (splittedMsg[0] === '!wr') {
     console.log(WRs);
