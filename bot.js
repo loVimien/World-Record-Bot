@@ -55,12 +55,12 @@ function onMessageHandler (target, context, msg, self) {
   }
   else if(splittedMsg[0] === '!debugInfo') {
     request({
-      url: 'https://api.twitch.tv/kraken/channel',
-      method: 'GET',
       headers: {
         'Accept': 'application/vnd.twitchtv.v5+json',
         'Client-ID': 'kvv1z3bd46uoyqkg64ccfg58p5u3bb'
-      }
+      },
+      uri: 'https://api.twitch.tv/kraken/users?login=fifour_',
+      method: 'GET'
     },function(err, res, body) {
       console.log(body);
   });
