@@ -1,7 +1,7 @@
 const tmi = require('tmi.js');
 const wr = require('./wr.js')
 const fs = require('fs')
-const https = require('https')
+const request = require('request')
 
 // Define configuration options
 const opts = {
@@ -54,26 +54,17 @@ function onMessageHandler (target, context, msg, self) {
     })
   }
   else if(splittedMsg[0] === '!debugInfo') {
-    https.request({
-      host: 'api.twitch.tv',
-      port: 443,
-      path: '/kraken/channel',
+    request({
+      url: 'https://api.twitch.tv/kraken/channel',
       method: 'GET',
       headers: {
         'Accept': 'application/vnd.twitchtv.v5+json',
         'Client-ID': 'kvv1z3bd46uoyqkg64ccfg58p5u3bb'
       }
-    },function(res) {
-      var raw = ''
-      res.on('data', function(d) {
-        raw += d;
-      })
-      .on('end', function(){
-        console.log(raw);
-      })
-    })
+    },function(err, res, body) {
+      console.log(body);
+  });
   }
-  
 }
 
 // Function called when the "dice" command is issued
