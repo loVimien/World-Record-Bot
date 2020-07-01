@@ -49,7 +49,7 @@ function onMessageHandler (target, context, msg, self) {
 
   // If the command is known, let's execute it
   if (splittedMsg[0] === '!wrAdd') {
-    if(splittedMsg.length != 3) {
+    if(splittedMsg.length < 3) {
       client.say(target, "Invalid arguments number");
     }
     else {
@@ -62,7 +62,7 @@ function onMessageHandler (target, context, msg, self) {
     }
   }
   else if (splittedMsg[0] === '!wr') {
-    console.log()
+    console.log(WRs);
     request({
       headers: {
         'Accept': 'application/vnd.twitchtv.v5+json',
@@ -79,9 +79,14 @@ function onMessageHandler (target, context, msg, self) {
           return true;
         }
       })
-      wr.getWR(WRs.WRs[0].src_link).then(function(result) {
-      client.say(target, result);
-    })
+      if(typeof(WR_to_display) === "undefined") {
+        client.say(target, "No WR found for this stream title");
+      }
+      else {
+        wr.getWR(WR_to_display.src_link).then(function(result) {
+          client.say(target, result);
+        })
+      }
   });
   }
   else if(splittedMsg[0] === '!debugInfo') {
