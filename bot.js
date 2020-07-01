@@ -54,9 +54,14 @@ function onMessageHandler (target, context, msg, self) {
     })
   }
   else if(splittedMsg[0] === '!debugInfo') {
-    https.get("https://api.twitch.tv/kraken/channel?client_id=kvv1z3bd46uoyqkg64ccfg58p5u3bb", {
+    https.request({
+      host: 'api.twitch.tv',
+      port: 443,
+      path: '/kraken/channel',
+      method: 'GET',
       headers: {
-        Accept: 
+        'Accept': 'application/vnd.twitchtv.v5+json',
+        'Client-ID': 'kvv1z3bd46uoyqkg64ccfg58p5u3bb'
       }
     },function(res) {
       var raw = ''
