@@ -49,7 +49,7 @@ function onMessageHandler (target, context, msg, self) {
 
   // If the command is known, let's execute it
   if (splittedMsg[0] === '!wrAdd' && (context.badges.broadcaster === '1' || context.mod)) {
-    if(splittedMsg.length != 3 && splittedMsg.lenghth != 4) {
+    if(splittedMsg.length != 3 && splittedMsg.length != 4) {
       client.say(target, "Invalid arguments number");
     }
     else {
