@@ -2,6 +2,8 @@ var https = require('https');
 
 var src_API = "https://www.speedrun.com/api/v1";
 
+var src_leaderboard_url = "https://www.speedrun.com/api/v1/leaderboards/j1l9qz1g/category/q255jw2o"
+
 var request = function(url) {
     return new Promise(function(resolve, reject) {
         https.get(url, function(res) {
@@ -10,7 +12,17 @@ var request = function(url) {
                 raw += d;
             })
             .on('end', function() {
-                resolve(raw);
+                if(res.statusCode > 400) {
+                    reject("Error : " + res.statusCode);
+                }
+                else if(res.statusCode === 302) {
+                    request(new URL(url).protocol + new URL(url).host + res.headers.location).then(function(result) {
+                        resolve(result);
+                    });
+                }
+                else {
+                    resolve(raw);
+                }
             })
             .on('error', function(err) {
                 reject(err.message);
@@ -43,7 +55,6 @@ var getWR = function(srcURL, subcatNeeded) {
                                 subcategory_ID = key;
                             }
                         }
-                        console.log(subcategory_ID);
                         category_ID = cat_data.data[0].id;
                     }
                     var new_req_prom = request(srcURL + "?var-" + category_ID + "=" + subcategory_ID);
