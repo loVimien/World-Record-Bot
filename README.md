@@ -24,7 +24,7 @@ WRBot displays the world record of the category you're running by looking at you
 !wrAdd|SRC_API_Category_Link|Display_name_on_title|Subcategory(if you want to add one)
 ```
 
-    * SRC_API_Category_Link : To find it, type speedrun.com/api/v1/leaderboard/game_suburl_on_src/category/category/category_suburl_on_src on your browser bar. For example if you want to add Ocarina of Time MST (URL : https://www.speedrun.com/oot#MST), type speedrun.com/api/v1/leaderboard/oot/category/mst. Then it will redirect you to a page, the link of this page is the link we're searching.
+    * SRC_API_Category_Link : This is a link like this : https://www.speedrun.com/api/v1/leaderboards/game_name/category/category_name. For example for Ocarina of Time MST it will be https://www.speedrun.com/api/v1/leaderboards/oot/category/mst
     * Display_name_on_title : Part of the stream title which the bot uses to know which WR it has to display
     * Subcategory : If you want to get a WR for a subcategory on SRC, type the exact name of the subcategory
 
